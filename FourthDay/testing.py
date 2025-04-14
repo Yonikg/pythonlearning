@@ -65,7 +65,7 @@ print(sum_all_nums(100))
 #package might have one or more moule
 #__init__.py this will change into  directory
   
-  
+  \
   # Step 2: Define the INSERT query
 sql = """
 Insert into Movies ([MovieID], [MovieTitle], [YearOfRelease], [Description], 

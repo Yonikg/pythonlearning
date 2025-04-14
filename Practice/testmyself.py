@@ -22,5 +22,9 @@ zzz(name = 'yoni', age = 25, nationality = 'Ethiopia')
 
 # 1 * is tuple and 2 is dict  --- To pack and unpack
 
-def edu_lv (a,b):
-    return (ed )
+from datetime import datetime
+now = datetime.now()
+print (now)
+
+year = now.year
+print (year)
