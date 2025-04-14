@@ -4,7 +4,17 @@ from utils.fetch_api import fetch_data
 
 app = Flask(__name__)
 
-
+data = fetch_data('https://api.thecatapi.com/v1/breeds')
+minififed_data = [ {
+        'id': cat['id'],
+        'name': cat['name'],
+        'origin': cat['origin'],
+        'temperament': cat['temperament'],
+        'description': cat['description'],
+        'weight': cat['weight']['metric'],
+        'life_span': cat['life_span'],
+       "image_url":  f"https://cdn2.thecatapi.com/images/{cat.get('reference_image_id')}.jpg" if  cat.get('reference_image_id') else ''
+        } for cat in  data]
 
 @app.route('/')
 def home():
@@ -26,23 +36,21 @@ def blog(id):
 
 @app.route('/api/v1/cats')
 def cats():
-    data = fetch_data('https://api.thecatapi.com/v1/breeds')
+    return minififed_data
     '''
-    TODO
-    {
-"description": "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-"id": "abys",
-"image_url": "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg",
-"life_span": 14.5,
-"name": "Abyssinian",
-"origin": "Egypt",
-"temperament": "Active, Energetic, Independent, Intelligent, Gentle",
-"weight": 4
-},
-    
+    change the life span to average
     '''
-    return data
 
+
+@app.route('/api/v1/cats/id/<id>')
+def cat_by_id(id):
+    return [cat for  cat in minififed_data if cat['id'] == id] 
+
+
+
+@app.route('/api/v1/cats/origin/<origin>')
+def cats_by_origin(origin):
+    return [cat for  cat in minififed_data if cat['origin'] == origin]
 
 if __name__ == '__main__':
     app.run(host='localhost', port = 5000, debug=True)
